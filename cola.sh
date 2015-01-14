@@ -472,6 +472,12 @@ echo "~ Custom Cola Started @ $( date +"%m-%d-%Y %H:%M:%S" )" >>$LOGFILE
 #begin user selected applets
 EOF
 
+#call applet menu
+custom_install_applet_menu
+}
+
+custom_install_applet_menu()
+{
 sleep 1;
 clear
 echo ""
@@ -500,20 +506,25 @@ echo "	[16] - Enable Ultra Gamer ADJ"
 echo "	[17] - Append higher priority to networking"
 echo "	[18] - Cola Engine"
 echo ""
+echo " [D] - Done Selecting, now install!"
 echo " [B] - Back"
 echo " [E] - Exit"
 sleep 4;
 read custom_option
     case $custom_option in
-        [1] ) ram_fix_1gb;;
-		[2] ) uncap_fps;;
+        [1] ) spacee && ram_fix_1gb && custom_install_applet_menu;;
+		[2] ) spacee && uncap_fps && custom_install_applet_menu;;
 		[3] ) gpu_ui;;
 		[4] ) ram_patch;;
+		[D] ) done_lel;;
 		[B] ) menu_install;;
         [E] ) clear && exit;;
-        * ) echo "| No Fake Coins!                               |";;
+        * ) echo " No Fake Coins!";;
     esac
+}
 
+done_lel()
+{
 cp /mnt/sdcard/hyper-cola/custom.sh /system/xbin/ccola
 chown 0.0 /system/xbin/ccola
 chmod 777 /system/xbin/ccola
@@ -530,16 +541,19 @@ logo
 menu_options
 }
 
-ram_fix_1gb()
+spacee()
 {
 	echo "" > $cus
-	echo "lel ram fix lel" > $cus
+}
+
+ram_fix_1gb()
+{
+	echo "1gb ram fix" > $cus
 }
 
 uncap_fps()
 {
-	echo "" > $cus
-	echo "setprop ro.FOREGROUND_APP_ADJ 8" > $cus
+	echo "uncap fps" > $cus
 }
 
 #script parser
