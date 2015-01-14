@@ -7,6 +7,7 @@
 #vars
 ver=0.10
 hyp_ver=3.5
+cus_ver=1.0
 
 logo()
 {
@@ -44,7 +45,7 @@ menu_install()
 		[2] ) normal_install;;
 		[3] ) custom_install;;
 		[O] ) menu_options;;
-        [E] ) exit;;
+        [E] ) clear && exit;;
         * ) echo "| No Fake Coins!                               |";;
     esac
 }
@@ -59,8 +60,9 @@ menu_options()
 	echo "|                                              |"
 	echo "|  Options:                                    |"
 	echo "| 1. Start/Stop Hyper Cola Engine              |"
-	echo "| 2. Remove Cola's                             |"
-	echo "| 3. Reboot                                    |"
+	echo "| 2. Start/Stop Custom Cola                    |"
+	echo "| 3. Remove Cola's                             |"
+	echo "| 4. Reboot                                    |"
 	echo "| B. Back                                      |"
 	echo "| E. Exit                                      |"
 	echo "|                                    ____      |"
@@ -73,9 +75,9 @@ menu_options()
     case $opt in
         [1] ) hyp_cola_toggle;;
 		[2] ) unwise_menu;;
-		[3] ) custom_install;;
+		[3] ) reboot;;
 		[B] ) menu_install;;
-        [E] ) exit;;
+        [E] ) clear && exit;;
         * ) echo "| No Fake Coins!                               |";;
     esac
 }
@@ -420,6 +422,96 @@ EOF
  echo "Yay, Installation was successful!";
  echo "To run hyper cola";
  echo "select Start/Stop HC Engine or Hyper Cola from options menu";
+sleep 2
+
+#show_menu
+clear
+logo
+menu_options
+}
+
+custom_install()
+{
+
+#mounting
+sync;
+busybox mount -o remount,rw /system;
+busybox mount -o remount,rw /data;
+
+clear
+echo "Welcome to the custom installer $cus_ver..."
+sleep 1;
+echo " ";
+
+#dir creation
+if [ ! -d "/mnt/sdcard/hyper-cola" ]; then
+mkdir /mnt/sdcard/hyper-cola
+fi
+
+cat >> /mnt/sdcard/hyper-cola/custom.sh <<EOF
+# CCola $cus_ver created by $user_name & Pizza_Dox
+
+#mount required partitions
+sync; busybox mount -o remount,rw /
+sync; busybox mount -o remount,rw rootfs
+sync; busybox mount -o remount,rw /system
+sync; busybox mount -o remount,rw /data
+
+#initialize log
+LOGFILE=/mnt/sdcard/hyper-cola/clog.txt
+
+#log start time
+echo "~ Custom Cola Started @ $( date +"%m-%d-%Y %H:%M:%S" )" >>$LOGFILE
+
+#begin user selected applets
+EOF
+
+echo "Cola applets: "
+echo ""
+echo "Standard:"
+echo "[1] - 1GB RAM management"
+echo ""
+echo "Imported:"
+echo "- Hyper Cola:"
+echo "	[2] - Uncap FPS"
+echo "	[3] - Render UI with GPU in 16bit mode"
+echo "	[4] - Patch RAM leaks"
+echo "	[5] - Speed up 3G"
+echo "	[6] - Max Entropy"
+echo "	[7] - Quick Cache Drop"
+echo "	[8] - Enable WiFi Deep Sleep"
+echo "	[9] - Speed up WiFi"
+echo "	[10] - Improve Touch response"
+echo "	[11] - Hyper I/O"
+echo "	[12] - Optimize VM"
+echo "	[13] - Stabilize Kernel"
+echo "	[14] - Clean rubbish"
+echo "	[15] - Disable Hi Quality Audio"
+echo "	[16] - Enable Ultra Gamer ADJ"
+echo "	[17] - Append higher priority to networking"
+echo "	[18] - Cola Engine"
+echo ""
+echo " [B] - Back"
+echo " [E] - Exit"
+read custom_option
+    case $custom_option in
+        [1] ) ram_fix_1gb;;
+		[2] ) uncap_fps;;
+		[3] ) gpu_ui;;
+		[4] ) ram_patch;;
+		[B] ) menu_install;;
+        [E] ) clear && exit;;
+        * ) echo "| No Fake Coins!                               |";;
+    esac
+
+cp /mnt/sdcard/hyper-cola/custom.sh /system/xbin/ccola
+chown 0.0 /system/xbin/ccola
+chmod 777 /system/xbin/ccola
+sleep 2;
+
+echo "Yay, Installation was successful!";
+echo "To run your custom cola";
+echo "select Start/Stop CCola from options menu";
 sleep 2
 
 #show_menu
