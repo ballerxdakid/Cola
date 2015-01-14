@@ -62,7 +62,7 @@ menu_options()
 	echo "| 1. Start/Stop Hyper Cola Engine              |"
 	echo "| 2. Start/Stop Custom Cola                    |"
 	echo "| 3. Remove Cola's                             |"
-	echo "| 4. Reboot                                    |"
+	echo "| R. Reboot                                    |"
 	echo "| B. Back                                      |"
 	echo "| E. Exit                                      |"
 	echo "|                                    ____      |"
@@ -74,8 +74,9 @@ menu_options()
 	read opt
     case $opt in
         [1] ) hyp_cola_toggle;;
-		[2] ) unwise_menu;;
-		[3] ) reboot;;
+		[2] ) ccola_toggle;;
+		[3] ) unwise;;
+		[R] ) reboot;;
 		[B] ) menu_install;;
         [E] ) clear && exit;;
         * ) echo "| No Fake Coins!                               |";;
@@ -448,6 +449,10 @@ if [ ! -d "/mnt/sdcard/hyper-cola" ]; then
 mkdir /mnt/sdcard/hyper-cola
 fi
 
+echo "Whats your name?"
+echo -n "> "
+read $user_name
+
 cat >> /mnt/sdcard/hyper-cola/custom.sh <<EOF
 # CCola $cus_ver created by $user_name & Pizza_Dox
 
@@ -466,6 +471,9 @@ echo "~ Custom Cola Started @ $( date +"%m-%d-%Y %H:%M:%S" )" >>$LOGFILE
 #begin user selected applets
 EOF
 
+sleep 1;
+clear
+echo ""
 echo "Cola applets: "
 echo ""
 echo "Standard:"
@@ -493,6 +501,7 @@ echo "	[18] - Cola Engine"
 echo ""
 echo " [B] - Back"
 echo " [E] - Exit"
+sleep 4;
 read custom_option
     case $custom_option in
         [1] ) ram_fix_1gb;;
@@ -510,7 +519,7 @@ chmod 777 /system/xbin/ccola
 sleep 2;
 
 echo "Yay, Installation was successful!";
-echo "To run your custom cola";
+echo "To run your CCola";
 echo "select Start/Stop CCola from options menu";
 sleep 2
 
