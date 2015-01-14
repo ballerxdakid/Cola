@@ -8,6 +8,7 @@
 ver=0.10
 hyp_ver=3.5
 cus_ver=1.0
+cus=/mnt/sdcard/hyper-cola/custom.sh
 
 logo()
 {
@@ -527,6 +528,18 @@ sleep 2
 clear
 logo
 menu_options
+}
+
+ram_fix_1gb()
+{
+	echo "" > $cus
+	echo "lel ram fix lel" > $cus
+}
+
+uncap_fps()
+{
+	echo "" > $cus
+	echo "setprop ro.FOREGROUND_APP_ADJ 8" > $cus
 }
 
 #script parser
