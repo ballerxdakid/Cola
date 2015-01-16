@@ -9,6 +9,7 @@ ver=0.10
 hyp_ver=3.5
 cus_ver=1.0
 cus=/mnt/sdcard/hyper-cola/custom.sh
+custmp=/data/local/tmp/custmp.sh
 
 logo()
 {
@@ -163,6 +164,51 @@ hyp_cola_stop()
 	#temp
 	echo "WIP..."
 }
+
+
+ccola_toggle()
+{
+	clear
+	echo "================================================"
+	echo "| The Cola Vending Machine $ver...             |"
+	echo "|                        ...by -=Pizza_Dox=-   |"
+	echo "================================================"
+	echo "|                                              |"
+	echo "|  Custom Cola Options:                        |"
+	echo "| 1. Start CCola                               |"
+	echo "| 2. Stop CCola                                |"
+	echo "| B. Back                                      |"
+	echo "|                                    ____      |"
+	echo "| COLA ==>                          |____|     |"
+	echo "|                                              |"
+	echo "================================================"
+	echo -n "|                            INSERT COIN ==>| "
+	sleep 1;
+	read opt
+    case $opt in
+		[1] ) ccola_start;;
+		[2] ) ccola_stop;;
+        [B] ) menu_options;;
+        * ) echo "| No Fake Coins!                               |";;
+    esac
+}
+
+
+ccola_start()
+{
+	clear
+	cd /system/xbin/
+	./ccola
+	echo "Done!"
+}
+
+ccola_stop()
+{
+	clear
+	#temp
+	echo "WIP..."
+}
+
 
 gamer_install()
 {
@@ -525,15 +571,16 @@ read custom_option
 
 done_lel()
 {
-cp /mnt/sdcard/hyper-cola/custom.sh /system/xbin/ccola
+cp $cus /system/xbin/ccola
 chown 0.0 /system/xbin/ccola
 chmod 777 /system/xbin/ccola
 sleep 2;
 
-echo "Yay, Installation was successful!";
-echo "To run your CCola";
-echo "select Start/Stop CCola from options menu";
-sleep 2
+echo "";
+echo " Yay, Installation was successful!";
+echo " To run your CCola";
+echo " select Start/Stop CCola from options menu";
+sleep 2;
 
 #show_menu
 clear
@@ -543,17 +590,23 @@ menu_options
 
 spacee()
 {
-	echo "" > $cus
+	cat $cus >> $custmp
+	echo '' >> $custmp
+	cp $custmp $cus
 }
 
 ram_fix_1gb()
 {
-	echo "1gb ram fix" > $cus
+	cat $cus >> $custmp
+	echo '1gb ram fix' >> $custmp
+	cp $custmp $cus
 }
 
 uncap_fps()
 {
-	echo "uncap fps" > $cus
+	cat $cus >> $custmp
+	echo 'uncap fps' >> $custmp
+	cp $custmp $cus
 }
 
 #script parser
