@@ -5,9 +5,9 @@
 #
 
 #vars
-ver=0.10
+ver=0.11
 hyp_ver=3.5
-cus_ver=1.0
+cus_ver=1.1
 cus=/mnt/sdcard/hyper-cola/custom.sh
 custmp=/data/local/tmp/custmp.sh
 
