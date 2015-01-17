@@ -11,6 +11,14 @@
 sync;
 busybox mount -o remount,rw /system;
 busybox mount -o remount,rw /data;
+
+#sqlite fix by RenzkiPH
+if [ ! -d "mkdir /sqlite_stmt_journals" ]; then
+	sync;
+	mount -o rw,remount rootfs
+	mkdir /mnt/sdcard/hyper-cola
+fi
+
 while true;
 do
 sleep 1;
