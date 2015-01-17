@@ -1,7 +1,7 @@
 #!/system/bin/sh
 ##############################################################################
-# Copyright © 2014 @ Pizza_Dox                                               #
-# Hyper Cola™ Created by Pizza_Dox                                           #
+# Copyright © 2015 @ Pizza_Dox                                               #
+# Hyper Cola Standalone™ Created by Pizza_Dox                                #
 # Do not Steal this Script or Any Scripts being Installed!                   #
 # For more Info Please view the GPL: http://www.gnu.org/licenses/gpl-3.0.txt #
 ##############################################################################
@@ -24,7 +24,7 @@ do
 sleep 1;
  echo " ";
 clear
- echo "Hyper Cola Package Installer 1.7";
+ echo "Hyper Cola Package Installer 1.8";
 sleep 0.5;
  echo "by Pizza_Dox";
  echo " ";
