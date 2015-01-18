@@ -6,6 +6,10 @@
 # For more Info Please view the GPL: http://www.gnu.org/licenses/gpl-3.0.txt #
 ##############################################################################
 
+#vars
+ins_ver=1.9
+hyp_ver=3.5
+
 #main_code
 #mount required partitions
 sync;
@@ -24,7 +28,7 @@ do
 sleep 1;
  echo " ";
 clear
- echo "Hyper Cola Package Installer 1.8";
+ echo "Hyper Cola Package Installer $ins_ver";
 sleep 0.5;
  echo "by Pizza_Dox";
  echo " ";
@@ -58,7 +62,7 @@ rm /mnt/sdcard/hyper-cola/cola_engine_starter.sh 2>/dev/null;
 rm /mnt/sdcard/hyper-cola/cola_engine.sh 2>/dev/null;
 rm /mnt/sdcard/hyper-cola/readme.html 2>/dev/null;
 cat >> /mnt/sdcard/hyper-cola/hyper.sh <<EOF
-# Hyper Cola 3.4 by Pizza_Dox.
+# Hyper Cola $hyp_ver by Pizza_Dox.
 # This script works on all linux devices with busybox installed.
 # Please reboot after gaming to preserve battery life and to avoid FC's and errors.
 
@@ -87,7 +91,7 @@ $( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOGX
 clear
 sleep 1;
  echo " ";
- echo "Hyper Cola";
+ echo "Hyper Cola $hyp_ver";
 sleep 0.5;
  echo "by Pizza_Dox";
  echo " ";
@@ -138,7 +142,7 @@ busybox echo "1" >> /proc/sys/net/ipv4/tcp_window_scaling 2>/dev/null
 busybox echo "1" >> /proc/sys/net/ipv4/tcp_no_metrics_save 2>/dev/null
 # Entropy to the MAX
 echo 1000 > /proc/sys/vm/dirty_expire_centisecs
-echo 500 > /proc/sys/vm/dirty_writeback_centisecs
+echo 2000 > /proc/sys/vm/dirty_writeback_centisecs
 echo 1024 > /proc/sys/kernel/random/write_wakeup_threshold
 echo 256 > /proc/sys/kernel/random/read_wakeup_threshold
 sleep 3
@@ -168,25 +172,45 @@ sleep 0.6;
  echo "Glazing UI with butter...";
 setprop persist.service.lgospd.enable 0
 setprop persist.service.pcsync.enable 0
-setprop windowsmgr.max_events_per_sec 90
 setprop touch.presure.scale 0.001
+setprop windowsmgr.max_events_per_sec 90
+# UI Layer Views
+sleep 0.6;
+ echo "Fixing UI Layer Views..."
+ setprop ENFORCE_PROCESS_LIMIT false
+ setprop MAX_SERVICE_INACTIVITY false
+ setprop MIN_HIDDEN_APPS false
+ setprop MAX_HIDDEN_APPS false
+ setprop CONTENT_APP_IDLE_OFFSET false
+ setprop EMPTY_APP_IDLE_OFFSET false
+ setprop MAX_ACTIVITIES false
+ setprop ACTIVITY_INACTIVE_RESET_TIME false
+ setprop MAX_RECENT_TASKS false
+ setprop MIN_RECENT_TASKS false
+ setprop APP_SWITCH_DELAY_TIME false
+ setprop MAX_PROCESSES false
+ setprop PROC_START_TIMEOUT false
+ setprop CPU_MIN_CHECK_DURATION false
+ setprop GC_TIMEOUT false
+ setprop SERVICE_TIMEOUT false
+ setprop MIN_CRASH_INTERVAL false
 # Hyper I/O
 sleep 0.6;
  echo "Boosting I/O read & write speeds...";
 echo vr > /sys/block/mmcblk0/queue/scheduler
 echo 512 > /sys/devices/virtual/bdi/default/read_ahead_kb
 echo 10 > /proc/sys/fs/lease-break-time
-# VM Optimization
+# HyperVM
 sleep 0.6;
- echo "Optimizing VM...";
+ echo "Executing HyperVM Optimizations...";
 setprop ro.vold.umsdirtyratio 20
 echo 1 > /proc/sys/vm/oom_kill_allocating_task
 echo 20 > /proc/sys/vm/swappiness
-echo 300 > /proc/sys/vm/vfs_cache_pressure
+echo 500 > /proc/sys/vm/vfs_cache_pressure
 echo 3000 > /proc/sys/vm/dirty_expire_centisecs
 echo 500 > /proc/sys/vm/dirty_writeback_centisecs
-echo 15 > /proc/sys/vm/dirty_ratio
-echo 3 > /proc/sys/vm/dirty_background_ratio
+echo 1 > /proc/sys/vm/dirty_ratio
+echo 2 > /proc/sys/vm/dirty_background_ratio
 echo 1 >/proc/sys/vm/overcommit_memory;
 # Hard rock stabilizer 
 sleep 0.6;
@@ -194,6 +218,14 @@ sleep 0.6;
 echo 0 > /proc/sys/vm/panic_on_oom
 echo 0 > /proc/sys/kernel/panic
 echo 0 > /proc/sys/kernel/panic_on_oops
+if [ -e /proc/sys/kernel/hung_task_timeout_secs ]
+then
+echo 0 > /proc/sys/kernel/hung_task_timeout_secs
+fi
+if [ -e /proc/sys/kernel/softlockup_panic ]
+then
+echo 0 > /proc/sys/kernel/softlockup_panic
+fi
 echo "chances = 0" | tee -a $LOGX
 # Resource Cleaner
 sleep 0.6;
@@ -244,17 +276,21 @@ setprop ro.audio.pcm.samplerate "48000";
 # Ultra Gamer ADJ
 sleep 0.6;
  echo "Fixing RAM management for games...";
-setprop ro.FOREGROUND_APP_ADJ 8
-setprop ro.VISIBLE_APP_ADJ 14
-setprop ro.SECONDARY_SERVER_ADJ 40
-setprop ro.HIDDEN_APP_MIN_ADJ 50
-setprop ro.CONTENT_PROVIDER_ADJ 60
-setprop ro.EMPTY_APP_ADJ 75
+setprop ro.FOREGROUND_APP_ADJ 0
+setprop ro.VISIBLE_APP_ADJ 11
+setprop ro.PERCEPTIBLE_APP_ADJ 13
+setprop ro.HEAVY_WEIGHT_APP_ADJ 3
+setprop ro.SECONDARY_SERVER_ADJ 15
+setprop ro.BACKUP_APP_ADJ 5
+setprop ro.HOME_APP_ADJ 7
+setprop ro.HIDDEN_APP_MIN_ADJ 3
+setprop ro.EMPTY_APP_ADJ 15
 # Network & Ram Mediator
 sleep 0.6;
  echo "Improving networking and RAM priority...";
 echo 1048576 > /proc/sys/net/core/wmem_max
 echo 1048576 > /proc/sys/net/core/rmem_max
+setprop ro.kernel.android.checkjni 0
 # Cola Engine 7
 sleep 0.6;
  echo "Starting Cola Engine...";
@@ -294,8 +330,8 @@ chmod 777 /mnt/sdcard/hyper-cola/cola_engine.sh
 #readme
 cat >> /mnt/sdcard/hyper-cola/readme.html <<EOF
 <br>
-Hyper Cola<br>
-Copyright © 2014 @ Pizza_Dox<br>
+Hyper Cola $hyp_ver<br>
+Copyright © 2015 @ Pizza_Dox<br>
 <br>
 This script fixes all lag in games and improves FPS greatly!<br>
 <br>
@@ -334,11 +370,17 @@ exit 0
 ;;
 *)
 sleep 0.5
- echo "You know swiftkey is on discount at the moment, get it while you can you typo maniac!";
-sleep 0.5
+ echo "error";
+ echo "obtaining logs to determine error...";
+sleep 0.5;
+ echo "log 2012-dec-12 - end of world"
+ echo "- u typed something wrong"
+ echo ""
+ echo "bye bye..."
+ sleep 1;
 esac
 done
 ;;
 echo "";
-# Email: diamond.nigel75@Gmail.com
-# Sourcecode: https://github.com/Pizza-Dox/
+# email: diamond.nigel75@Gmail.com
+# src: https://github.com/Pizza-Dox/
