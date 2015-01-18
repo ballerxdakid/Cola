@@ -1,4 +1,4 @@
 Cola
 ==========
 
-A Script
+Vending machine of scripts for your Android
